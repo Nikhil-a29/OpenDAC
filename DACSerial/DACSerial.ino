@@ -165,6 +165,7 @@ int handle_SET(int argc, String argv[])
   Serial.println("SET");
   int dac_num = argv[1].toInt();
   long dac_val = argv[2].toInt();
+  if (dac_val < 264786) {
   if (dac_num == 1) {
     int pin = 4;
     int _sync = 4;
@@ -196,6 +197,10 @@ int handle_SET(int argc, String argv[])
   else {
     Serial.println("Error: Specify DAC: SET [DAC#] [BITCODE]");
     return 0;
+    }
+  }
+    else {
+    Serial.println("Voltage overload");
     }
   
 }
@@ -248,6 +253,7 @@ int handle_RAMP(int argc, String argv[])
   long dac_val = argv[2].toInt();
   long step_size = argv[3].toInt();
   int step_time = argv[4].toInt();
+  if (dac_val < 264786) {
   if (dac_num == 1) {
     int pin = 4;
     int _sync = 4;
@@ -274,6 +280,10 @@ int handle_RAMP(int argc, String argv[])
     }
   else {
     Serial.println("Invalid Dac Number");
+    }
+  }
+    else {
+    Serial.println("Voltage Overload");
     }
 }
 
