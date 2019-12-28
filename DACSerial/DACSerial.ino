@@ -48,7 +48,7 @@ void setup() {
    * DAC1 - 4
    * DAC2 - 10
    * DAC3 - 12
-   * DAC4 - 3
+   * DAC4 - 52
    */
   SPI.begin();
   pinMode(4, OUTPUT);
@@ -57,8 +57,8 @@ void setup() {
   digitalWrite(10, LOW);
   pinMode(12, OUTPUT);
   digitalWrite(12, LOW);
-  pinMode(3, OUTPUT);
-  digitalWrite(3, LOW);
+  pinMode(52, OUTPUT);
+  digitalWrite(52, LOW);
   
   Serial.begin(9600);
   Serial.println("Setting up server");
@@ -147,10 +147,10 @@ int handle_INIT(int argc, String argv[])
     Serial.println("Initialization complete"); 
     }
   else if (dac_num == 4) {
-    int pin = 3;
-    int sync = 3;
-    dacs[3].initialize_DAC(3,3);
-    dacs[3].read_DAC_register(3);
+    int pin = 52;
+    int sync = 52;
+    dacs[3].initialize_DAC(52,52);
+    dacs[3].read_DAC_register(52);
     delay(20);
     Serial.println("Initialization complete");
   }
@@ -187,9 +187,9 @@ int handle_SET(int argc, String argv[])
     Serial.println("SET COMPLETE");
     }
   else if (dac_num == 4) {
-    int pin = 3;
-    int _sync = 3;
-    long rc = dacs[dac_num - 1].set_value(3,dac_val);
+    int pin = 52;
+    int _sync = 52;
+    long rc = dacs[dac_num - 1].set_value(52,dac_val);
     Serial.println(BITCODE_TO_DAC(rc)); 
     Serial.println("SET COMPLETE");
     }
@@ -232,9 +232,9 @@ int handle_READ(int argc, String argv[])
   Serial.println(returnVolt);
     }
   else if (dac_num == 4) {
-    int pin = 3;
-    int _sync = 3;
-    long rc = dacs[dac_num - 1].read_DAC_register(3);
+    int pin = 52;
+    int _sync = 52;
+    long rc = dacs[dac_num - 1].read_DAC_register(52);
   Serial.println(BITCODE_TO_DAC(rc)); //bitcode returned
   float returnVolt = ((BITCODE_TO_DAC(rc) - 132536)/13225);
   Serial.println(returnVolt);
@@ -248,28 +248,29 @@ int handle_RAMP(int argc, String argv[])
   long dac_val = argv[2].toInt();
   long step_size = argv[3].toInt();
   int step_time = argv[4].toInt();
+    
   if (dac_num == 1) {
     int pin = 4;
     int _sync = 4;
-    dacs[dac_num - 1].ramp(dac_val, step_size, step_time);
+    dacs[dac_num - 1].ramp(4, dac_val, step_size, step_time);
     Serial.println("Ramp in progress ");
     }
   else if (dac_num == 2){
     int pin = 10;
     int _sync = 10;
-    dacs[dac_num - 1].ramp(dac_val, step_size, step_time);
+    dacs[dac_num - 1].ramp(10, dac_val, step_size, step_time);
     Serial.println("Ramp in progress ");
     }
   else if (dac_num == 3) {
     int pin = 12;
     int _sync = 12; 
-    dacs[dac_num - 1].ramp(dac_val, step_size, step_time);
+    dacs[dac_num - 1].ramp(12, dac_val, step_size, step_time);
     Serial.println("Ramp in progress ");
     }
   else if (dac_num == 4) {
-    int pin = 3;
-    int _sync = 3;
-    dacs[dac_num - 1].ramp(dac_val, step_size, step_time);
+    int pin = 52;
+    int _sync = 52;
+    dacs[dac_num - 1].ramp(52, dac_val, step_size, step_time);
     Serial.println("DAC RAMP DONE");
     }
   else {
